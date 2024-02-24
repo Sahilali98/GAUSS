@@ -1,1 +1,1 @@
-wikipedia
+cv2.data.haarcascades
