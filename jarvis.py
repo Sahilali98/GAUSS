@@ -55,8 +55,9 @@ def hindi_audio(text):
     try:
         translated = GoogleTranslator(source='auto', target='hi').translate(text)
         var = gTTS(text = translated,lang = 'hi') 
-        var.save('E:\\PROGRAME\\PYTHON\\eng.mp3') 
-        playsound('E:\\PROGRAME\\PYTHON\\eng.mp3')
+        var.save('eng.mp3') 
+        playsound('eng.mp3')
+        os.remove('eng.mp3')
     
     except Exception as e:
         print(e)
@@ -115,6 +116,7 @@ def news():
     day=["first","second","third","fourth","fifth","sixth","seventh","eight","ninth","tenth"]
     for ar in articles:
         head.append(ar["title"])
+
     speak('you want news in hindi or english')
     lang = takeCommand().lower()
     if lang == 'hindi':
@@ -232,16 +234,21 @@ def TaskExecution():
                 
         #exit function
         elif "exit" in query:
-            exit()
+            speak('thanks for using me sir, have a good day.')
+            speak('please say weak up to continue')
+            return False
         elif "no thanks" in query:
             speak("thanks for using me sir, have a good day.")
-            sys.exit()     
+            speak('please say weak up to continue')
+            return False     
         elif "you can sleep" in query or 'sleep now' in query:
             speak("thanks for using me sir, have a good day.")
-            break
+            speak('please say weak up to continue')
+            return False
         elif "done" in query:
             speak("have good day sir")
-            sys.exit()
+            speak('please say weak up to continue')
+            return False
             
         #introduction of terminator
         elif "who are you" in query:
@@ -386,7 +393,6 @@ def TaskExecution():
         #         speak("An unexpected error has occurred, Please try again")
 
         elif "take screenshot" in query or "take a screenshot" in query:
-
             # generating a random number between 1 
             # to 5 which will represent the time 
             # delay 
@@ -416,7 +422,7 @@ def TaskExecution():
             speak(f"Sir here is the profile of the user {name}")
             time.sleep(5)
             speak('sir would you like to download profile picture of this account.')
-            condition = takeCommand().lower()
+            condition = input(': ')
             if 'yes' in condition:
                 mod = instaloader.Instaloader()
                 mod.download_profile(name, profile_pic_only=True)
@@ -532,9 +538,13 @@ def TaskExecution():
 
 #main methode
 if __name__ == "__main__":
+    flag = True
     while True:
-        permisssion = takeCommand().lower()
-        if 'wake up' in permisssion:
-            TaskExecution()
-        elif 'shut down now' in permisssion:
-            sys.exit()
+        if flag==True:
+            flag=TaskExecution()
+        else:
+            permisssion = takeCommand().lower()
+            if 'wake up' in permisssion:
+                flag=TaskExecution()
+            elif 'shut down now' in permisssion:
+                sys.exit()

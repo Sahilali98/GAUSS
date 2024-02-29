@@ -42,7 +42,7 @@ while True:
         cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2) #used to draw a rectangle on any image
 
         id, accuracy = recognizer.predict(converted_image[y:y+h,x:x+w]) #to predict on every single image
-
+        print(id)
         # Check if accuracy is less them 100 ==> "0" is perfect match 
         if (accuracy < 100):
             id = names[id]
